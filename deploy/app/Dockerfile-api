@@ -1,0 +1,11 @@
+FROM node:14-slim
+
+WORKDIR /tmp
+COPY package.json /tmp
+RUN yarn install && mkdir -p /usr/src/app && mv node_modules /usr/src/app/
+
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+
+EXPOSE 9000
+CMD [ "node", "server.js" ]

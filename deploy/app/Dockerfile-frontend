@@ -1,0 +1,12 @@
+FROM node:14-slim
+
+WORKDIR /tmp
+COPY frontend/package.json /tmp
+RUN yarn install && mkdir -p /usr/src/app/frontend && mv node_modules /usr/src/app/frontend/
+
+WORKDIR /usr/src/app/frontend
+COPY . /usr/src/app
+RUN yarn run build
+
+EXPOSE 5000
+CMD [ "npx", "serve", "-s", "build" ]
